@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f4f6f8;
+    }
+
+    .center-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh; /* Adjust as needed */
+    }
+
+    .logout-button {
+        position: fixed;
+        bottom: 2%;
+        right: 2%;
+        background-color: #f4f6f8;
+        border: 1px solid #d4d4d4;
+        padding: 5px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .logout-button:hover {
+        background-color: #e2e2e2;
+    }
+</style>
+
+<div id="react-root"></div> <!-- React will render the content inside this div -->
+
+<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    function App() {
+        const handleLogout = () => {
+            location.href = "http://127.0.0.1:5000/logout";
+        };
+
+        return (
+            <section className="section">
+                <div className="container center-content">
+                    <h1 className="title is-3">You are not a subscriber</h1>
+                    <button className="button is-primary" id="submitBtn">Subscribe</button>
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
+                </div>
+            </section>
+        );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('react-root'));
+</script>
+{% endblock %}

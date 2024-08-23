@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+    <!-- React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel for in-browser JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive viewport -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #ff0033;
+            color: white;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 500px;
+            padding: 5% 4%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4% 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 1rem;
+            width: 40%;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 2%;
+        }
+
+        .container input, .container button {
+            box-sizing: border-box;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .container button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .register-text {
+            margin-top: 3%;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .register-text span {
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;  /* vertically centers the checkbox and label */
+            justify-content: center;  /* horizontally centers the checkbox and label */
+            margin: 10px 0;
+            padding: 15px 0;  /* added top and bottom padding */
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            margin-right: 10px;  // added this to provide some spacing between checkbox and label
+            padding: 0;
+        }
+
+        .checkbox-container label {
+            display: inline-block;
+            margin: 0;  // ensure there's no default margin
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        function RegisterForm({ errorMessage }) {
+            return (
+                <div>
+                    {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
+                    <div className="container">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" className="logo" />
+                        <form action="/register" method="POST">
+                            <label>Email:</label>
+                            <input type="email" name="email" required />
+                            <label>Password:</label>
+                            <input type="password" name="password" required />
+                            
+                            <div className="checkbox-container">
+                                <input type="checkbox" name="terms" id="terms" required />
+                                <label htmlFor="terms">I agree to the terms and conditions</label>
+                            </div>
+                                                    
+                            <button type="submit">Register</button>
+                        </form>
+                        <div className="register-text">
+                            Already have an account? <span onClick={() => window.location.href = "http://capius.onrender.com/login"}>Login</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    
+        const errorMessage = "{{ error_message or '' }}";
+        ReactDOM.render(<RegisterForm errorMessage={errorMessage} />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>
